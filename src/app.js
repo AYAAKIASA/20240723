@@ -1,12 +1,17 @@
 import express from 'express'
+import connectDB from './schemas/index.js'
+import productRouter from './routers/products.router.js'
+import { errorHandler } from './middlewares/error-handler.middleware.js'
 
-const app = express();
-const port = 3000;
+const app = express()
 
-app.get(path: '/', (req, res): Response<Any, Record<String
-retrun res.json(body: 'hello');
-});
+app.use(express.json())
+app.use('/products', productRouter)
+app.use(errorHandler)
 
-app.listen{port, (): void => {
-    console.log(message:'Server is listening on ${port}');
-}};
+connectDB()
+
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
+})
